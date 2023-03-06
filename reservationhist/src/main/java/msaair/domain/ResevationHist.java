@@ -10,14 +10,11 @@ import lombok.Data;
 @Table(name="ResevationHist_table")
 @Data
 public class ResevationHist {
-
         @Id
         //@GeneratedValue(strategy=GenerationType.AUTO)
         private Long id;
+        private String eventType;
         private Long customerId;
         private Long scheduleId;
         private Long mileage;
-        private String eventType;
-
-
 }

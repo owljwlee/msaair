@@ -7,8 +7,6 @@ import java.util.*;
 
 @Data
 public class MileageDecreased extends AbstractEvent {
-
-    private Long id;
     private Long customerId;
-    private Integer mileage;
+    private Long mileage;
 }
