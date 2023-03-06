@@ -41,13 +41,23 @@ public class Reservation  {
 
     @PrePersist 
     public void onPrePersist() {
-        // Get request from Schedule
+        // Check if The input schedule id exists
         try {
         msaair.external.Schedule schedule = ReservationmgmtApplication.applicationContext.getBean(msaair.external.ScheduleService.class).getSchedule(
             getScheduleId()
         );
         } catch(Exception ex) {
             throw new RuntimeException("Schedule id isn't existed");
+        }
+
+        // Check if the customer exists
+        try {
+        // Get request from Mileage
+        msaair.external.Mileage mileage = ReservationmgmtApplication.applicationContext.getBean(msaair.external.MileageService.class).getMileage(
+            getCustomerId()
+        );
+        } catch(Exception ex){
+            throw new RuntimeException("non-existed customer");           
         }
     }
 

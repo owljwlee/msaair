@@ -42,6 +42,8 @@ logging:
 api:
   url:
     schedulemgmt: localhost:8081
+    customermgmt: localhost:8082
+
 
 
 server:

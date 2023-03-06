@@ -12,7 +12,6 @@ import java.util.Date;
 @Entity
 @Table(name="Mileage_table")
 @Data
-
 public class Mileage  {
 
 
@@ -34,16 +33,11 @@ public class Mileage  {
 
     @PostPersist
     public void onPostPersist(){
+        // Mileageincreased mileageincreased = new Mileageincreased(this);
+        // mileageincreased.publishAfterCommit();
 
-
-        Mileageincreased mileageincreased = new Mileageincreased(this);
-        mileageincreased.publishAfterCommit();
-
-
-
-        MileageDecreased mileageDecreased = new MileageDecreased(this);
-        mileageDecreased.publishAfterCommit();
-
+        // MileageDecreased mileageDecreased = new MileageDecreased(this);
+        // mileageDecreased.publishAfterCommit();
     }
 
     public static MileageRepository repository(){
@@ -51,51 +45,39 @@ public class Mileage  {
         return mileageRepository;
     }
 
-
-
-
     public static void accumulateMileage(ReservationCreated reservationCreated){
-
         /** Example 1:  new item 
         Mileage mileage = new Mileage();
         repository().save(mileage);
-
         */
-
-        /** Example 2:  finding and process
-        
-        repository().findById(reservationCreated.get???()).ifPresent(mileage->{
-            
-            mileage // do something
+        /** Example 2:  finding and process */
+        repository().findById(reservationCreated.getCustomerId()).ifPresent(mileage->{
+            mileage.setMileage(mileage.getMileage() + reservationCreated.getMileageToIncrease() );
             repository().save(mileage);
-
-
-         });
-        */
-
-        
+            Mileage aMileage = new Mileage();
+            aMileage.setCustomerId(mileage.getCustomerId());
+            aMileage.setMileage(mileage.getMileage());
+            Mileageincreased mileageincreased = new Mileageincreased(aMileage);
+            mileageincreased.publishAfterCommit();
+            }
+         );
     }
     public static void cancelMileage(ReservationCancelled reservationCancelled){
 
         /** Example 1:  new item 
         Mileage mileage = new Mileage();
         repository().save(mileage);
-
         */
 
-        /** Example 2:  finding and process
-        
-        repository().findById(reservationCancelled.get???()).ifPresent(mileage->{
-            
-            mileage // do something
+        /** Example 2:  finding and process*/
+        repository().findById(reservationCancelled.getCustomerId()).ifPresent(mileage->{    
+            mileage.setMileage(mileage.getMileage() - reservationCancelled.getMileageToIncrease() );
             repository().save(mileage);
-
-
+            Mileage aMileage = new Mileage();
+            aMileage.setCustomerId(mileage.getCustomerId());
+            aMileage.setMileage(mileage.getMileage());
+            MileageDecreased mileageDecreased = new MileageDecreased(aMileage);
+            mileageDecreased.publishAfterCommit();
          });
-        */
-
-        
     }
-
-
 }

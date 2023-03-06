@@ -28,18 +28,8 @@ public class PolicyHandler{
         ReservationCreated event = reservationCreated;
         System.out.println("\n\n##### listener AccumulateMileage : " + reservationCreated + "\n\n");
 
-
-        // Comments // 
-		//마일리지를 적립한다.
-		// 
-		// 
-
         // Sample Logic //
         Mileage.accumulateMileage(event);
-        
-
-        
-
     }
 
     @StreamListener(value=KafkaProcessor.INPUT, condition="headers['type']=='ReservationCancelled'")
@@ -48,15 +38,8 @@ public class PolicyHandler{
         ReservationCancelled event = reservationCancelled;
         System.out.println("\n\n##### listener CancelMileage : " + reservationCancelled + "\n\n");
 
-
-        
-
         // Sample Logic //
         Mileage.cancelMileage(event);
-        
-
-        
-
     }
 
 }

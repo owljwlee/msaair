@@ -10,7 +10,6 @@ import java.util.Date;
 @Entity
 @Table(name="Notification_table")
 @Data
-
 public class Notification  {
 
 
@@ -35,7 +34,7 @@ public class Notification  {
 
     public static void sendNotification(ReservationCreated reservationCreated){
 
-        System.out.printlnreservationCreated.getEventType());
+        System.out.println(reservationCreated.getEventType());
 
 
         /** Example 1:  new item 

@@ -10,9 +10,9 @@ import lombok.*;
 @ToString
 public class Mileageincreased extends AbstractEvent {
 
-    private Long id;
-    private Integer mileage;
+ //   private Long id;
     private Long customerId;
+    private Long mileage;
 
     public Mileageincreased(Mileage aggregate){
         super(aggregate);
