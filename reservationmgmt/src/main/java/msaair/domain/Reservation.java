@@ -39,14 +39,22 @@ public class Reservation  {
     
     private Long scheduleId;
 
+    @PrePersist 
+    public void onPrePersist() {
+        // Get request from Schedule
+        try {
+        msaair.external.Schedule schedule = ReservationmgmtApplication.applicationContext.getBean(msaair.external.ScheduleService.class).getSchedule(
+            getScheduleId()
+        );
+        } catch(Exception ex) {
+            throw new RuntimeException("Schedule id isn't existed");
+        }
+    }
+
     @PostPersist
     public void onPostPersist(){
         ReservationCreated reservationCreated = new ReservationCreated(this);
         reservationCreated.publishAfterCommit();
-        // Get request from Schedule
-        //msaair.external.Schedule schedule =
-        //    Application.applicationContext.getBean(msaair.external.ScheduleService.class)
-        //    .getSchedule(/** mapping value needed */);
     }
 
     @PreRemove
@@ -59,10 +67,4 @@ public class Reservation  {
         ReservationRepository reservationRepository = ReservationmgmtApplication.applicationContext.getBean(ReservationRepository.class);
         return reservationRepository;
     }
-
-
-
-
-
-
 }

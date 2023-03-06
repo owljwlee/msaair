@@ -36,9 +36,6 @@ public class ScheduleController {
             return schedule;
             
     }
-    
-
-
 
     @RequestMapping(value = "schedules/{id}/deleteschedule",
         method = RequestMethod.PUT,
