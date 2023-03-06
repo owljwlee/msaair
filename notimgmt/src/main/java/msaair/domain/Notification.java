@@ -35,6 +35,9 @@ public class Notification  {
 
     public static void sendNotification(ReservationCreated reservationCreated){
 
+        System.out.printlnreservationCreated.getEventType());
+
+
         /** Example 1:  new item 
         Notification notification = new Notification();
         repository().save(notification);
