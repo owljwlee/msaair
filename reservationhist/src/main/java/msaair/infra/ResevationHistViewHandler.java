@@ -17,6 +17,8 @@ public class ResevationHistViewHandler {
     @Autowired
     private ResevationHistRepository resevationHistRepository;
 
+    private Long nextId = 0L;
+
     @StreamListener(KafkaProcessor.INPUT)
     public void whenReservationCreated_then_CREATE_1 (@Payload ReservationCreated reservationCreated) {
         try {
@@ -28,7 +30,8 @@ public class ResevationHistViewHandler {
             resevationHist.setCustomerId(reservationCreated.getCustomerId());
             resevationHist.setScheduleId(reservationCreated.getScheduleId());
             resevationHist.setEventType("예약등록");
-//          resevationHist.setId(reservationCreated.getId());
+            nextId++;
+            resevationHist.setId(nextId);
             // view 레파지 토리에 save
             resevationHistRepository.save(resevationHist);
 
@@ -48,6 +51,8 @@ public class ResevationHistViewHandler {
             resevationHist.setCustomerId(reservationCancelled.getCustomerId());
             resevationHist.setScheduleId(reservationCancelled.getScheduleId());
             resevationHist.setEventType("예약취소");
+            nextId++;
+            resevationHist.setId(nextId);
             // view 레파지 토리에 save
             resevationHistRepository.save(resevationHist);
 
@@ -67,6 +72,8 @@ public class ResevationHistViewHandler {
             resevationHist.setCustomerId(mileageincreased.getCustomerId());
             resevationHist.setMileage(mileageincreased.getMileage());
             resevationHist.setEventType("마일리지적립");
+            nextId++;
+            resevationHist.setId(nextId);
             // view 레파지 토리에 save
             resevationHistRepository.save(resevationHist);
 
@@ -86,6 +93,8 @@ public class ResevationHistViewHandler {
             resevationHist.setCustomerId(mileageDecreased.getCustomerId());
             resevationHist.setMileage(mileageDecreased.getMileage());
             resevationHist.setEventType("마일리지적립취소");
+            nextId++;
+            resevationHist.setId(nextId);
             // view 레파지 토리에 save
             resevationHistRepository.save(resevationHist);
 
